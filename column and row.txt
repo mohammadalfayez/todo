@@ -1,0 +1,239 @@
+A column can have many children by using the children <widget> [child: ,child: etc...], the children in the column are placed vertically
+use the MainAxisAlignment (is the main axis where the direction is going (if row then horizontal if column then vertical)),
+and CrossAxisAlignment(is the inverse axis, (if row then vertical, if column then horizontal)) to align items in the column/row
+
+Row is the same as the column but items are placed horizontally
+
+you can combine rows inside columns or vise versa to create an entire page
+
+stack is used to place children on top of each other
+
+to move the item in the stack, wrap the item in the stack with a positioned() widget and adjust top, left, right and bottom
+
+you can also use overflow to allow stacked items to overflow
+
+Optimal: Expanded, rows and columns are used to create a layout, expanded makes the rows and columns take up all the space,
+use the flex property to distribute the width
+
+Icons are like fontawesome in html and css, use the icon class Icon(and here u can define properties, ex: use Icons.person to for a person),
+search up material app icons in flutter for a full list, u can also define the size and colors etc
+
+dividers are used to seperate different widgets by a line, use the divider class Divider(specify properties like thickness and other),
+DividerVertical is used to seperate different widgets in a row by placing a vertical linek
+
+
+it is better to seperate different components in a page to different files, ex: in a homepage, seperate header and footer to 2 different
+files
+
+for stuff that can be reused, create them in a seperate file and implement them whenever they need to be used
+
+Always reuse widgets
+
+there are 3 types of buttons in flutter.
+
+Textbutton() for pressable text (like a link).
+Outlinedbutton() for buttons with a border but no background
+Elevatedbutton() for buttons with a shadow and background color 
+
+to style a button use the whateverbutton.stylefrom(here specify stuff)
+
+sizedbox allows creating a box and specifying its size, good for creating a margin by setting the height of the box to the margin needed.
+
+for buttons u can add icons by doing whateverbutton.icon(label (which is the text), and other attributes), then use the icon Variable
+icon:Icon(Icons.whatevericonyouwant), this will place the icon in the button
+
+in stateful widgets, values in initstate method are executed first thing, but they are only executed once.
+
+map allows passing a list of values to widgets, ex: if u hav a list x = ["hello","how","are","you"], you can use the map to assign those
+values to widgets like
+...x.map(value {
+    return Text(value)
+})
+the 3 dots is necessary, the result will be 4 text widgets, each text widget having the corresponding value from the list.
+ 
+To add fonts to flutter install the package using the command prompt, then import the fonts into the desired page,
+then you use Google.whateverfont(and here u can add the background, color, size and so on...) the Google.whateverfont acts as
+the TextDecoration() class.
+
+When creating lists/variables/maps... etc in flutter, it is always better to declare them before the @override decorator, and when
+modifying them, you must always modify them after the build function, because the build function is responsible for updating the UI, 
+and if they are modified outside the build function (wont work anyways), then they wont be modified because they werent in the build
+function so they werent part of the UI update.
+
+same applies to the if statements and for loops, they must always be placed inside the build method.
+
+the where() function allows filtering lists, like the map function, the where function accepts a parameter 
+and a function, and in that function you can filter lists by returning a condition, and that function returns a new list that has the
+filtered values based on the condition, here is an example: var list = [1,2,1,4,1], 
+
+  var modifiedlist = list.where((element) {
+    return element == 1;
+  },); 
+  then the modified list returns [1,1,1]
+
+  SingleChildScrollView allows the child of the widget to be scrollable if it exceeds the height of the parent widget.
+
+getters in flutter can be used instead of functions when you want to return data based on a variable in a class, ex: if you have 
+a variable var number; and you want to return number*2, you can use getters instead of functions without parameters,
+here is an example
+
+int num = 2;
+
+int get numTimesTwo {
+    return num*2
+}
+
+and then you can use numTimesTwo as a variable, it does not need () as getters do not have parameters , 
+getters having a void return type is pointless as the main purpose is to return a value.
+getters can use the basic functionality of functions like map and where and other stuff
+
+arrow functions are used in anonymous functions when you want to immediately return a value without doing any operations before
+returning the value, like if statements and loops, you can use them like this () => return num * num, it is useful for confusing
+people for absolutely no fucking reason. just use normal functions.
+
+Initializer lists are used in classes to define values for attributes without having to define the value when running the class, 
+they are initialized by using : in front of the init constructor and defining the value.
+
+class Human{
+  Human({required this.name, required this.age}): gender = "male";
+
+  String name;
+  Int age;
+  String gender;
+}
+
+now its not needed to define the gender when running class(name: age:)
+
+in flutter enums are used to define a list of values and those values that are defined are the only values that are allowed in 
+the variable, ex:
+
+enum MovieCategory {horror, thriller, comedy, drama}
+
+then you can choose a value by doing MovieCategory.horror or whatever other category.
+
+listview is better used for page components rather than layouts, ex: horizontal scrolling like in uber eats where u can check the
+promos, it is used for scrolling multiple repetitive stuff with a few changes, but same exact design , like instagram scrolling, 
+it isnt used for page layouts, use column or row for that 
+
+TextFormField widget allows creating a text field, then inside the widget u can define many attributes, here are the important ones:
+
+decoration: allows decorating the input field, stuff like borders, hint texts, etc.. (to add fillcolor, filled must be set to true
+then u can add a fillcolor)
+
+u can specify certain designs for the borders, ex: error borders can have different designs, enabled borders can also have diff designs
+, u can specify the borderside colors, width and radius inside the OutlinedBorder() or UnderlinedBorder() class
+
+outside of the decoration u can define multiple properties, here are important ones,
+
+keyboardtype: use TextInputType.whatever to define the keyboard type (like numbers only for pins, email type to display the
+@ button easily, date type etc... ),
+
+you can set the min line to 1 and maxline to whatever  together to make it better
+
+obscuretext is used to hide passwords (boolean), importanttt,
+
+style: is used to style the text inside the field like we always do,
+
+textinputaction: TextInputAction.whatever allows u to choose the type of enter button that will be displayed on the keyboard 
+
+Data models can be thought of in relation to mysql databases, when creating lets say a habit tracker app, there is a habits table, 
+a users table, etc... same with flutter, when creating a habit tracker, there is a habits model, users model, then using the models 
+you can store data in the db and also perform algorithms on the data.
+
+in data models there are obviously functions and methods that can be performed, like in users, user authentication function, validation and 
+so on.. 
+
+So in flutter, the functions, algorithms and calculations regarding the data should be done as functions inside the data model class,
+the widgets are then used to display the results accordingly. 
+
+So managing data should be done via data models and displaying the data should be done via widgets.
+
+Its always a better practice to create the data model with the functions first, and then work on displaying them
+
+in flutter u can make a modal sheet by using the showmodalbottomsheet() function and then return the widget that u want to be
+added to the modal sheet.
+
+to close a modal sheet manually u use the navigator.pop to close it.
+
+asynchronous functions in flutter work by adding the async keyword after a function, then you can define await before a line of code,
+defining await before the line of code or function basically tells the function to temporarily suspend, or pause, until the code in
+the await is finished executing, other code is run.
+
+so the async function returns a future item, and the await is used to pause the execution of the entire async function 
+until the future is available.
+
+To define a dropdown menu, you first define the DropDownButton widget, then inside u define the 
+value: which is the selected value in the dropdown menu, and u also define the 
+items: which should be a list of DropDownMenuItem widgets, it is done using the map function, 
+inside the DropDownMenuItem u define the value: which is the value of each item in the menu, 
+and the child: which can be any widget that represents the value, usually text.
+and also u define the onchanged function in the DropDownMenuItem which takes the value of the DropDownMenuItem
+as a parameter so u can do functions for it.
+
+in flutter to add items to a page the setState should be in the widget where the items should be added.
+
+for modal sheets u can make them fullscreen by setting isscrollControlled
+
+snackbars in flutter are like the mini popups on the bottom of the screen, u can define them by either assigning the SnackBar widget 
+to a variable or define the Widget in the ScaffoldMessenger.of(context).Showsnackbar(the widget), then u can define a label and actions
+etc..., u can clear snackbars by using the ScaffoldMessenger.of(context).clearSnackBars.
+
+for themedata
+
+brightness: the brigtness of the color
+primary: The Color thats used most frequently for the app like appbars and some interactive elements
+onPrimary: the color thats drawn on primary (ex: text and icons)
+secondary: The color thats used less frequently for the app (mainly specific interactive elements that need to be highlighted
+like buttons and switches and checkboxes)
+onSecondary: the color thats drawn on secondary 
+error: the color used for validation errors
+onError: the color drawn on validation errors
+surface: The color of 'surface' UI components such as cards, sheets, menus.
+onSurface: the color thats drawn on the surface items 
+background: The color of the application's background.
+background: The color that is drawn on the background.
+primarycontainer :can be used as the primary color for containers, also can be used for cards
+secondarycontainer: can be used as the secondary color for containers, also can be used for cards
+
+for themedata.seedcolor
+Dont use it sucks
+
+Texttheme allows styling texts u can define text styles and then use Theme.of to access the themes from the text widgets since Text
+widgets cannot be styled directly from the themeData, 
+themeof is used to allow accessing themes directly from widgets, it allows u to set themes for certain widgets 
+
+Since not all widgets can be directly themed using themedata, u should use the themeof to style widgets that cant be styled using
+the themedata like container and text, u can use the themeof in container to set the style or color of it based on an existing theme
+or color.
+
+use Theme.of(context).colorScheme.whateveruwant to set a color based on an existing color in the colorscheme, 
+
+u can also set themes for widgets based on existing themes by using Theme.of(context).cardTheme.whateverattribute like margin and color,
+
+ex: margin: Theme.of(context).cardTheme.margin,
+
+this obviously works for text and should be also used for text since the text theme is defined at the themeData but isnt applied, u
+can set the text style for an item like the body text or text in a container by using Theme.of(context).textTheme.titlelarge or any other
+theme like titleSmall or labelSmall. etc...
+
+Text widgets cannot be directly styled from the themedata, only automatic texts like the stuff in the appbar and other stuff can.
+
+Some of the elements that get themed automatically when you define a color scheme include:
+
+App Bar: The background color of the AppBar is based on the primary color.
+
+Floating Action Button (FAB): The FAB uses the secondary (or accent) color.
+
+Buttons: ElevatedButtons use the primary color by default. TextButtons and OutlinedButtons use color from the onSurface for their text color.
+
+Texts: By default, text widgets use onSurface for their color. This applies to text within many other widgets, too.
+
+Dialogs, menus, cards, text fields: These surface and background widgets use the background and surface colors.
+
+Dividers: These use the divider color.
+
+Switches, progress indicators: These use primary and secondary for their active colors.
+
+SnackBar: The SnackBar's background color comes from the surface color, and the text color comes from the onSurface color.
+
+they can be overridden ofc

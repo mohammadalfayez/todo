@@ -1,0 +1,40 @@
+How UI is updated in flutter
+
+The UI is updated every time the build method is called, state changes trigger build methods,
+then after that, a new widget tree is constructed since widget trees are immutable and cannot
+change so a new one needs to be constructed every time.
+
+The new widget tree is then compared with the old one to determine changes, after that, the
+element tree is updated based on the determined changes, the element tree is mutable so it
+just needs to be updated instead of creating a new one, then the render objects are updated
+based on the element tree, the render tree is also mutable. so the items were not rerendered
+again, only the additions/changed based on the render tree were rendered.
+
+
+How to update UI while minimizing widget tree size:
+
+Since a new widget tree is created when the UI is updated, executing setState() in a 
+widget will automatically execute the build method. so it is better to move the widgets
+affected by the setstate to another widget, so that way, only the widgets that are affected
+by the setstate, ex: a button that changes text, (in this case the button and text are moved
+to a seperate widget), that way, only the build method for the seperate widget is executed
+and the widget tree size is way smaller since unaffected widgets will not be added.
+
+What are keys
+
+Keys are used to uniquely identify each widget, they are not automatically added and are used
+to preserve the state of a widget, when the UI is updated, a new widget tree is created, but
+not a new element tree, for an element tree to be able to match with each widget, it first
+checks the type of the widget, and then checks if the widget has a key, if it dosent, it 
+matches based on the type only, if it does, it matches with the widget that has the same key.
+Since each stateful widget has a state, the state of the widget is not connected to each
+widget, but to its element, so when a new widget tree is created and there are no keys for a 
+stateful widget, the element will only match with the type, which means that the state might 
+not match up with its widget, so in certain cases, assigning keys to stateless widgets allows
+the flutter to assign an element and the state to a widget corresponding to it, it does that
+by checking if the type and keys are the same. that way, when UI is updated, the state of a 
+widget is preserved
+
+Final vs const:
+Final allows adding items to a list, but dosent allow modifying it or overriding values,
+const dosent allow adding items or modifying or overriding values.

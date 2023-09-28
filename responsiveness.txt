@@ -1,0 +1,47 @@
+
+Locking orientation: you can lock the orientation of the app to make it only available on certain orientations, u can do that by
+importing the services package and doing this
+
+import 'package:flutter/services.dart';
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown
+  ]).then(
+    (value){runApp(
+      RunEverything(),
+    );}
+  );
+}
+
+u can lock the orientation in certain modes like portraitDown, portaitup, landscaperight, and lanscapeleft, it accepts a list so u can
+allow more than 1 orientation.
+
+Adjust to different sizes: You can use MediaQuery.of(Context).size.width or height or aspect ratio, to let the screen display stuff
+differently based on the size, aspectratio is the width/height, u can use if statements or terenary expressions to check if the width
+or height is bigger or equal or less than a specific height to display items differently. u can check if aspectratio > 1 to display
+items in landscape.
+
+expanded makes it so the widget takes up as much height or width as it can, so when you have 2 items in a row, and both items have
+a width of double.infinity, or if both items take up more width than the actual screen, u wrap both items with expanded to make it so
+both items take up as much width as they can while still fitting in the screen, 
+
+you can also use MediaQuery(context).of.viewinsets.bottom or top or whatever to return the width or height of items that pop on the screen
+like keyboards. then u can adjust the items to scroll when the keyboard is on the screen.
+
+for cameras and battery icons that are on top, u can set useSafeArea to true in the modal sheet to make sure that the phone icons arent
+overlapping modal sheet components, scaffold widget automatically uses useSafeArea
+
+layoutbuilder is used to set constraints and change widgets based on the size of the parent widget, u can define the size of the widget
+and use an if statement (without curly braces) to do changes based on the width or height of the parent widget,
+
+Media query is used to change stuff based on screen properties like portrait mode and landscape mode, layoutbuilder is used to change
+widgets based on the size of the parent widget.
+
+the if statement in a column or row child only effects 1 widget, same with the else, any widgets after are displayed anyways
+ofc its better to make specific custom widgets for different widths and then use them in the if statements to make the code less
+confusing
+
+u can use an if statement to check the platform and then make changes based on the platform (android or ios), 
+use if(platform.isIos or platform.isAndroid) and there are ios specific styles that u can import, google them.

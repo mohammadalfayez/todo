@@ -1,0 +1,40 @@
+Riverpod: U can use the riverpod package for state management, u can use a provider which provides data to widgets that need them.
+do flutter pub add flutter_riverpod to add the package.
+
+To use provider u define a provider file and then use the Provider((ref) {return the data u want to provide}), place it in a variable.
+To use data from a provider in a widget u have to rename the widget to a consumer widget, (ConsumerStateFulWidget instead 
+of stateful widgets.) and ConsumerWidget instead of stateless widgets.
+
+To access the data from the provider u place ref.watch(the name of the provider variable) in a variable and use it. 
+
+You should wrap the myApp widget in the main function with a ProviderScope widget for it to work,
+
+When you want to manage the state of an item that can change (ex removing and adding items to a list), u should use 
+StateNotifier<type of item that will change>, and then u add an initializer list to the constructor of the function 
+:super(item to be modified), after that u define the function to change the items. But items ex lists, are immutable in the state notifier,
+so u cant modify them by using add and remove, instead, when adding new items to lists, u should always create a new list with the updated
+items, to access the item to modify u use the state variable, u can remove lists by using where since it returns a new list based on 
+conditions, and u can add items by using the ... operator as it basically divides the list items to individual items and u can add them
+to a list (ex: state = [...state, meal] to add an item (meal being the item added and ...state being the items in the old list)),
+heres an example on how u can remove items
+
+if(mealsIsFav){
+      state = state.where((m) => m.id != meal.id).toList();
+    }
+
+So if the meal is already in the list, in filters it out by only adding the meals where it checks the id of each item in the list to
+compare it to the id of the meal to be removed, since the meal to be removed is already in the list that means that one of the items
+will match the meal id, so it is not added as only the items with unique id's are added.
+
+after that u use StateNotifierProvider<Name of the notifier class, type of data in the class> ((ref => the name of the stateNotifier class)) 
+(add it in a variable), StateNotifierProvider is used to provide instances of the stateNotifier to be able to provide them 
+to the widgets
+
+In state management, the output of the function, ex: list should be passed through widget layers, but the function itself shouldnt, it
+should be defined in 
+
+ref.watch is used to access the output of the function, it watches for changes in the output and updates the state.
+ref.read is used to access the function itself.
+
+to access a function from the provider, u change the widget into a consumerWidget, add WidgetRef ref as an argument to the build method,
+then use ref.read(nameofprovider.notifier).functionyouwanttoaccess(whatever arguments there are).

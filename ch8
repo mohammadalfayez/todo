@@ -1,0 +1,146 @@
+It is always better to make a seperate widgets folder that has the widgets, ex: cards and containers and other stuff, and a seperate
+folder that has the screens that display the widgets, the widgets should have model data as class variables and the screens should pass
+the data as arguments to the widget, that allows reusability.
+
+How meals data can be loaded
+- make a meals model 
+- make a meals screen (only 1) (maybe use listview)
+- make a widget for meals and add it to the listview (display all meals on a screen)
+- figure out how to filter them
+
+If theres a widget that wont be used in another widget, then u can directly access the list of data without using it as an argument, if
+it will be used in another widget, then define the list as an argument and pass it as a parameter.
+
+Gridview:
+Gridview allows displaying items in a grid format, you can define the number of items and the number of columns, the width and height
+of a grid item cannot be set, instead u can set the child aspect ratio which is the width to height ratio, the width and height of the
+item will be set based on the amount of items in the grid. Like listview u can use normal or listview builder.
+
+Tab based navigation:
+u can make tabs by specifying a tab screen, and specifying the bottomnavigationbar: BottomNavigationBar() in the scaffold, 
+then inside the widget, u specify the BottomNavigationBarItems which accept an icon and a label, and u also have to specify the ontap
+function in the BottomNavigationBar(), the function has an int index parameter (which is basically the page index) that is automatically changed when a tab item is clicked, inside the function u can do the logic for changing pages. the tab page must be placed
+in the main function to replace the homepage.
+
+example: 
+
+  Widget build(BuildContext context) {
+    String pageTitle = "Categories";
+    Widget activeScreen = CategoryWidget();
+
+    if(activeScreenIndex == 1){
+      activeScreen = MealsScreen(title: "Your favorites", meals: []);
+      pageTitle = "Favorites";
+    }
+    return Scaffold(
+      appBar: AppBar(title: Text(pageTitle)),
+      body: activeScreen,
+      bottomNavigationBar:  BottomNavigationBar(onTap: switchscreen, items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.set_meal), label: "Categories"),
+        BottomNavigationBarItem(icon: Icon(Icons.star), label: "Favorites"),
+      ],
+     ),
+    );
+  }
+
+SwitchListTile allows setting a switch that turns on and off, u can define styles and titles and subtitles and then define the onchanged function, the onchanged function has a boolean parameter that is automatically changed when the switch is flipped, then u can do the operations inside the function (the operations should be in a setState and the switchlisttile should be in a stateful widget),
+ex: 
+
+listtile allows defining a clickable list item, it has a leading and a title and an ontap function that allows adding list items like a text and icon, it can be used in all widgets and is better to use for list items. 
+ex:
+          ListTile(
+            leading: Icon(Icons.restaurant,
+                size: 26, color: Theme.of(context).colorScheme.onBackground),
+            title: Text(
+              "Meals",
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Theme.of(context).colorScheme.onBackground, fontSize: 24),
+            ),
+            onTap: (){
+              switchScreen("Meals");
+            },
+          ),
+
+
+SwitchListTile(
+              title: Text(
+                "Lactose free",
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground
+                ),
+                ),
+              subtitle: Text(
+                "Displays Lactose free meals",
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground
+                ),
+                ),
+              activeColor: Theme.of(context).colorScheme.tertiary,
+              contentPadding: EdgeInsets.all(20),
+              value: _isLactoseFree, 
+              onChanged: (value){
+                setState(() {
+                    _isLactoseFree = value;
+                }));
+
+    
+
+WillPopScope widget is used to be able to pass data when the back button is pressed, the data passed is in the onWillPop function where u have to add the navigator.of(context).pop(here the data is passed the data is type future so async should be added, the data is passed to the push method in the previous widget.)
+
+drawer allows adding a side drawer to a screen (like the modal sheet,) u define the Drawer widget and inside u can define a DrawerHeader and drawer items, ofc its better to add column inside the drawer to add the drawer items, u can use listtile as drawer items.
+
+ex:  
+
+Drawer(
+      child: Column(
+        children: [
+          DrawerHeader(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+                Theme.of(context).colorScheme.primaryContainer,
+                Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8)
+              ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+            ),
+            child: Row(children: [
+              const Icon(
+                Icons.fastfood,
+                size: 48,
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Text(
+                "Cooking up!",
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
+              ),
+            ],
+            ),
+          ),
+
+          ListTile(
+            leading: Icon(Icons.restaurant,
+                size: 26, color: Theme.of(context).colorScheme.onBackground),
+            title: Text(
+              "Meals",
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Theme.of(context).colorScheme.onBackground, fontSize: 24),
+            ),
+            onTap: (){
+              switchScreen("Meals");
+            },
+          ),
+
+          ListTile(
+            leading: Icon(Icons.settings,
+                size: 26, color: Theme.of(context).colorScheme.onBackground),
+            title: Text(
+              "Filters",
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Theme.of(context).colorScheme.onBackground, fontSize: 24),
+            ),
+            onTap: (){
+              switchScreen("filter");
+            },
+          ),
+
+        ],
+      ),
+    );
